@@ -1,6 +1,6 @@
 import { AuthService } from './../auth.service';
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
@@ -8,8 +8,10 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
-  status = { message: '' };
-  errors = { errors: {} };
+  status = [];
+  errors = [];
+  username = '';
+  email = '';
 
   constructor(private authService: AuthService) { }
 
@@ -17,13 +19,19 @@ export class SignupComponent implements OnInit {
   }
 
   onSignup(form: NgForm) {
-    status = null;
+    this.status = [];
+    this.errors = [];
     this.authService.signup(form).subscribe(
       (response) => {
         this.status = response.json();
+        console.log(this.status);
+        this.username = form.value.username;
+        this.email = form.value.email;
+        form.reset();
       },
       (error) => {
-        this.errors = error.json();
+        this.errors = error.json().errors;
+        console.log(this.errors);
       }
     );
   }

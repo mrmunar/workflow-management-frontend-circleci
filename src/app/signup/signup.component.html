@@ -1,18 +1,34 @@
-<p>{{ errors.errors | json }}</p>
-<form (ngSubmit)="onSignup(loginForm)" #loginForm="ngForm">
-    <div class="form-group">
-      <label for="username">Username</label>
-      <input type="text" id="username" name="username" ngModel class="form-control" required>
-    </div>
-    <div class="form-group">
-      <label for="email">Mail</label>
-      <input type="text" id="email" name="email" ngModel class="form-control" required>
-    </div>
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" ngModel class="form-control" required>
-    </div>
-    <button type="submit" [disabled]="!loginForm.valid">Sign up</button>
-  </form>
+<div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
 
+      <div class="alert alert-success" *ngIf="status.message">
+        {{status.message}} <br>
+        <ul>
+          <li><strong>Username:</strong> {{username}}</li>
+          <li><strong>Email:</strong> {{email}}</li>
+        </ul>
+      </div>
 
+      <form (ngSubmit)="onSignup(loginForm)" #loginForm="ngForm">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" ngModel class="form-control">
+            <span class="text-danger" *ngIf="errors.username">{{errors.username}}</span>
+          </div>
+          <div class="form-group">
+            <label for="email">Mail</label>
+            <input type="text" id="email" name="email" ngModel class="form-control">
+            <span class="text-danger" *ngIf="errors.email">{{errors.email}}</span>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" ngModel class="form-control">
+            <span class="text-danger" *ngIf="errors.password">{{errors.password}}</span>
+          </div>
+          <button type="submit" [disabled]="!loginForm.valid">Sign up</button>
+        </form>
+
+   </div>
+  <div class="col-sm-2"></div>
+</div>
