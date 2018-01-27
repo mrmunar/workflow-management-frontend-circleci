@@ -1,24 +1,43 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
 import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
-import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuardService as AuthGuard } from './auth-guard.service';
+import { Unauthorized404Component } from './unauthorized404.component';
+import { PagenotfoundComponent } from './pagenotfound.component';
+import { SignoutComponent } from './signout/signout.component';
 
 const routes: Routes =  [
+  {
+    path: '',
+    component: SigninComponent
+  },
+  {
+    path: 'section',
+    loadChildren: './sections/sections.module#SectionsModule',
+    canActivate: [AuthGuard],
+  },
   {
     path: 'signup',
     component: SignupComponent
   },
   {
-    path: '**',
-    component: SigninComponent
+    path: 'signout',
+    component: SignoutComponent
   },
+  {
+    path: 'unauthorized404',
+    component: Unauthorized404Component
+  },
+  {
+    path: '**',
+    component: PagenotfoundComponent
+  }
 ];
 
 @NgModule({
   imports: [
-    CommonModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules})
   ],
   exports: [
     RouterModule

@@ -2,14 +2,17 @@ import { Http, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 import { NgForm } from '@angular/forms';
+import { JwtHelperService } from '@auth0/angular-jwt';
+
 // tslint:disable-next-line:import-blacklist
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 // tslint:disable-next-line:import-blacklist
 import 'rxjs/Rx';
 
 
 @Injectable()
 export class AuthService {
+  isSignedIn = new BehaviorSubject<boolean>(null);
 
   constructor(private http: Http) {
 
@@ -37,5 +40,25 @@ export class AuthService {
           localStorage.setItem('token', tokenData.token);
         }
       );
+  }
+
+  signout() {
+    try {
+      localStorage.removeItem('token');
+    } catch {
+      console.log('Signout Error: Token not found!');
+    }
+  }
+
+  checkIfLoggedIn(): boolean {
+    const jwtHelper: JwtHelperService = new JwtHelperService('');
+    const token = localStorage.getItem('token');
+    let isLoggedIn: boolean;
+    try {
+      isLoggedIn = !jwtHelper.isTokenExpired(token);
+    } catch {
+      isLoggedIn = false;
+    }
+    return isLoggedIn;
   }
 }

@@ -1,24 +1,25 @@
 <div class="row">
-  <div class="col-sm-2"></div>
-  <div class="col-sm-8">
+  <div class="col-sm-4"></div>
+  <div class="col-sm-4" *ngIf="!isLoggedIn">
 
-    <div class="alert alert-danger" *ngIf="errors.login">{{errors.login}}</div>
+    <div class="alert alert-danger" *ngIf="error">{{error}}</div>
+    <div class="alert alert-danger" *ngIf="loginError.login">{{loginError.login}}</div>
     <div class="alert alert-success" *ngIf="status?.length > 0">Successfully logged in!</div>
 
     <form (ngSubmit)="onSignin(loginForm)" #loginForm="ngForm">
         <div class="form-group">
           <label for="username">Username/Email</label>
           <input type="text" id="username" name="username" ngModel class="form-control">
-          <span class="text-danger" *ngIf="errors?.username">{{errors.username}}</span>
+          <span class="text-danger" *ngIf="loginError.username">{{loginError.username}}</span>
         </div>
         <div class="form-group">
           <label for="password">Password</label>
           <input type="password" id="password" name="password" ngModel class="form-control">
-          <span class="text-danger" *ngIf="errors?.password">{{errors.password}}</span>
+          <span class="text-danger" *ngIf="loginError.password">{{loginError.password}}</span>
         </div>
         <button type="submit" [disabled]="!loginForm.valid">Sign in</button>
       </form>
 
  </div>
-<div class="col-sm-2"></div>
+<div class="col-sm-4"></div>
 </div>
