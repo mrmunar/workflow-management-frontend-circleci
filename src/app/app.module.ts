@@ -8,8 +8,8 @@ import { SignupComponent } from './signup/signup.component';
 import { SigninComponent } from './signin/signin.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthService } from './auth.service';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule  } from '@angular/common/http';
 import { NavbarComponent } from './navbar/navbar.component';
 import { AuthGuardService } from './auth-guard.service';
 import { AppBootstrapModule } from './app-bootstrap.module';
@@ -19,6 +19,7 @@ import { PagenotfoundComponent } from './pagenotfound.component';
 import { SignoutComponent } from './signout/signout.component';
 
 import { NgProgressModule } from '@ngx-progressbar/core';
+import { ShowErrorsComponent } from './show-errors.component';
 
 @NgModule({
   declarations: [
@@ -28,13 +29,15 @@ import { NgProgressModule } from '@ngx-progressbar/core';
     NavbarComponent,
     Unauthorized404Component,
     PagenotfoundComponent,
-    SignoutComponent
+    SignoutComponent,
+    ShowErrorsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpModule,
+    ReactiveFormsModule,
+    HttpClientModule,
     SectionsModule,
     AppBootstrapModule,
     SectionsModule,

@@ -2,31 +2,26 @@
     <div class="col-sm-4"></div>
     <div class="col-sm-4">
 
-      <div class="alert alert-success" *ngIf="status.message">
-        {{status.message}} <br>
-        <ul>
-          <li><strong>Username:</strong> {{username}}</li>
-          <li><strong>Email:</strong> {{email}}</li>
-        </ul>
-      </div>
+      <div class="alert alert-success" *ngIf="statusMessage">{{statusMessage}}</div>
+      <div class="alert alert-danger" *ngIf="errors">{{errors}}</div>
 
-      <form (ngSubmit)="onSignup(loginForm)" #loginForm="ngForm">
+      <form (ngSubmit)="onSignup()" [formGroup]="signupForm">
           <div class="form-group">
             <label for="username">Username</label>
-            <input type="text" id="username" name="username" ngModel class="form-control">
-            <span class="text-danger" *ngIf="errors.username">{{errors.username}}</span>
+              <input formControlName="username" class="form-control">
+              <app-show-errors [control]="signupForm.controls['username']"></app-show-errors>
           </div>
           <div class="form-group">
-            <label for="email">Mail</label>
-            <input type="text" id="email" name="email" ngModel class="form-control">
-            <span class="text-danger" *ngIf="errors.email">{{errors.email}}</span>
+            <label for="email">Email</label>
+              <input formControlName="email" class="form-control">
+              <app-show-errors [control]="signupForm.controls['email']"></app-show-errors>
           </div>
           <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" id="password" name="password" ngModel class="form-control">
-            <span class="text-danger" *ngIf="errors.password">{{errors.password}}</span>
+              <input type="password" formControlName="password" class="form-control">
+              <app-show-errors [control]="signupForm.controls['password']"></app-show-errors>
           </div>
-          <button type="submit" [disabled]="!loginForm.valid">Sign up</button>
+          <button type="submit" [disabled]="!signupForm.valid">Sign up</button>
         </form>
 
    </div>

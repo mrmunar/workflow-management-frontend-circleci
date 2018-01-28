@@ -1,6 +1,7 @@
 import { AuthService } from './../auth.service';
 import { Component, OnInit } from '@angular/core';
-import { NgForm, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Signup } from '../auth';
 
 @Component({
   selector: 'app-signup',
@@ -8,29 +9,49 @@ import { NgForm, FormGroup } from '@angular/forms';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
-  status = [];
-  errors = [];
-  username = '';
-  email = '';
+  signup: Signup;
+  signupForm: FormGroup;
 
-  constructor(private authService: AuthService) { }
+  statusMessage: string;
+  errors: string;
 
-  ngOnInit() {
+  constructor(private authService: AuthService, private fb: FormBuilder) {
+    this.signupForm = fb.group({
+      'username': [null, Validators.required],
+      'email': [null, Validators.compose([Validators.required, Validators.email])],
+      'password': [null, Validators.required],
+    });
   }
 
-  onSignup(form: NgForm) {
-    this.status = [];
-    this.errors = [];
-    this.authService.signup(form).subscribe(
-      (response) => {
-        this.status = response.json();
-        console.log(this.status);
-        this.username = form.value.username;
-        this.email = form.value.email;
-        form.reset();
+  ngOnInit() {}
+
+  prepareSave(): Signup {
+    const signupModel = this.signupForm.value;
+    const saveSignup: Signup = {
+      username: signupModel.username,
+      email: signupModel.email,
+      password: signupModel.password
+    };
+    return saveSignup;
+  }
+
+  onSignup() {
+    this.signup = this.prepareSave();
+    this.statusMessage = '';
+    this.errors = '';
+    this.authService.signup(this.signup).subscribe(
+      (response: Response) => {
+        this.statusMessage = response['message'];
+        console.log(this.statusMessage);
+        this.signupForm.reset();
       },
-      (error) => {
-        this.errors = error.json().errors;
+      (error: Response) => {
+        this.errors = this.authService.checkIfServerIsUp(error);
+        if (!this.errors) {
+          if (error['error']['errors']['email']) {
+            this.errors = error['error']['errors']['email'];
+          }
+        }
         console.log(this.errors);
       }
     );
