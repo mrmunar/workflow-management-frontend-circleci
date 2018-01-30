@@ -1,13 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { userMenu, adminMenu } from './sidebar/sidebar';
 
 @Component({
   selector: 'app-sections',
-  template: '<router-outlet></router-outlet>',
+  templateUrl: './sections.component.html',
   styleUrls: []
 })
-export class SectionsComponent implements OnInit {
 
-  constructor() { }
+export class SectionsComponent implements OnInit {
+  // userMenuNavItems = userMenu;
+  adminMenuNavItems = adminMenu;
+
+  constructor() {
+  }
 
   ngOnInit() {
   }

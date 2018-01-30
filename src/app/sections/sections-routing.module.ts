@@ -12,6 +12,10 @@ const routes: Routes = [
     children: [{
       path: '',
       loadChildren: './dashboard/dashboard.module#DashboardModule'
+    },
+    {
+      path: 'workflow-management',
+      loadChildren: './dashboard/workflowmanagement.module#WorkflowManagementModule'
     }]
   }];
 

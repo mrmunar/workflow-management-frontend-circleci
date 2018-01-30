@@ -1,0 +1,7 @@
+<div class="list-group">
+  <div *ngFor="let item of navItems">
+    <a href="{{ item.url }}" *ngIf="item.children" (click)="isCollapsed = !isCollapsed" class="list-group-item layer-{{layer}}">{{ item.title }}</a>
+    <a href="{{ item.url }}" *ngIf="!item.children"  class="list-group-item layer-{{layer}}">{{ item.title }}</a>
+    <div [collapse]="isCollapsed"><app-sidebar *ngIf="item.children" [navItems]="item.children" [layer]="layer+1" ></app-sidebar></div>
+  </div>
+</div>
