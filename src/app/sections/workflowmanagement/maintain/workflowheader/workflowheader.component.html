@@ -1,0 +1,16 @@
+<div class="alert alert-success" *ngIf="statusMessage">{{statusMessage}}</div>
+<div class="alert alert-danger" *ngIf="errors">{{errors}}</div>
+
+<form [formGroup]="workflowHeaderForm">
+  <div class="form-group">
+    <label for="workflow_header_desc">Workflow Header Description</label>
+    <input formControlName="workflow_header_desc" class="form-control">
+    <app-show-errors [control]="workflowHeaderForm.controls['workflow_header_desc']"></app-show-errors>
+  </div>
+  <div class="form-group">
+    <label for="workflow_process_id">Workflow Process</label>
+    <input formControlName="workflow_process_id" class="form-control">
+    <app-show-errors [control]="workflowHeaderForm.controls['workflow_process_id']"></app-show-errors>
+  </div>
+  <button class="btn" (click)="saveWorkflowHeader()" [disabled]="!workflowHeaderForm.valid">Save</button>
+</form>

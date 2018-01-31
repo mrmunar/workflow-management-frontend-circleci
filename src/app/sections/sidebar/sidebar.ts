@@ -5,42 +5,42 @@ export const userMenu = [
       },
       {
         title: 'My Tickets',
-        url: '/myTickets'
+        url: '/section/mytickets'
       },
       {
         title: 'Work Area',
-        url: '/workArea'
+        url: '/section/workarea'
       }
     ];
 
 export const adminMenu = [
       {
         title: 'Dashboard',
-        url: '/adminDashboard'
+        url: '/admindashboard'
       },
       {
         title: 'Workflow Management',
-        url: 'javascript:void(0)',
+        url: '',
         children: [
           {
             title: 'List',
-            url: '/admin/workflowManagement/list'
+            url: '/section/admin/workflowmanagement/'
           },
           {
             title: 'Create',
-            url: '/admin/workflowManagement/create'
+            url: '/section/admin/workflowmanagement/create'
           },
           {
             title: 'Parameters',
-            url: 'javascript:void(0)',
+            url: '',
             children: [
               {
                 title: 'Activities',
-                url: '/admin/parameters/activities'
+                url: '/section/admin/parameters/activities'
               },
               {
                 title: 'Dropdown Values',
-                url: '/admin/parameters/dropdownValues'
+                url: '/section/admin/parameters/dropdownValues'
               }
             ]
           }

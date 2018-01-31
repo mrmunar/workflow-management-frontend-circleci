@@ -1,6 +1,6 @@
 import { AuthService } from './../auth.service';
 import { Component, OnInit } from '@angular/core';
-import { NgForm, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,38 +11,42 @@ import { Router } from '@angular/router';
 export class SigninComponent implements OnInit {
   status = [];
   loginError = [];
-  error = '';
+  errors = '';
+  signinForm: FormGroup;
 
-  constructor(private authService: AuthService, private router: Router) { }
-
-  ngOnInit() {
-    if (this.authService.checkIfLoggedIn()) {
-      this.router.navigate(['section']);
-    }
+  constructor(private authService: AuthService, private router: Router, private fb: FormBuilder) {
+    this.signinForm = fb.group({
+      'username': [null, Validators.required],
+      'password': [null, Validators.required]
+    });
   }
 
-  onSignin(form: NgForm) {
-    this.status = [];
-    this.error = '';
-    this.authService.signin(form).subscribe(
+  ngOnInit() {
+
+  }
+
+  onSignin() {
+    this.authService.signin(this.signinForm).subscribe(
       (response) => {
-        this.status = response.token;
+        this.status = [];
+        this.errors = '';
+        this.status = response['token'];
         this.authService.isSignedIn.next(true);
         console.log(response);
         setTimeout(() => {
             this.router.navigate(['section']);
         }, 3000);
       },
-      (error) => {
-        if (error.json().error) {
-          this.error = error.json().error;
-          console.log('generic error');
-        } else if (error.json().errors) {
-          console.log('login error');
-          this.loginError = error.json().errors;
+      (error: Response) => {
+        this.status = [];
+        this.errors = '';
+        if (!this.errors) {
+          if (error['error']['errors']['login']) {
+            this.errors = error['error']['errors']['login'];
+          }
         }
         this.authService.isSignedIn.next(false);
-        console.log(error.json());
+        // console.log(error['error']);
       }
     );
   }

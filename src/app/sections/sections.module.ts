@@ -5,6 +5,7 @@ import { SectionsComponent } from './sections.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { AppBootstrapModule } from '../app-bootstrap.module';
 
+
 @NgModule({
   imports: [
     CommonModule,

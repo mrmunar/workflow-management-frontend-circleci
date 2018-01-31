@@ -6,6 +6,7 @@ import { AuthGuardService as AuthGuard } from './auth-guard.service';
 import { Unauthorized404Component } from './unauthorized404.component';
 import { PagenotfoundComponent } from './pagenotfound.component';
 import { SignoutComponent } from './signout/signout.component';
+import { ServererrorComponent } from './servererror.component';
 
 const routes: Routes =  [
   {
@@ -15,7 +16,7 @@ const routes: Routes =  [
   {
     path: 'section',
     loadChildren: './sections/sections.module#SectionsModule',
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard]
   },
   {
     path: 'signup',
@@ -28,6 +29,10 @@ const routes: Routes =  [
   {
     path: 'unauthorized404',
     component: Unauthorized404Component
+  },
+  {
+    path: 'servererror',
+    component: ServererrorComponent
   },
   {
     path: '**',

@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuardService as AuthGuard } from '../auth-guard.service';
 
 
+
 const routes: Routes = [
   {
     path: '',
@@ -14,14 +15,17 @@ const routes: Routes = [
       loadChildren: './dashboard/dashboard.module#DashboardModule'
     },
     {
-      path: 'workflow-management',
-      loadChildren: './dashboard/workflowmanagement.module#WorkflowManagementModule'
+      path: 'admin/workflowmanagement',
+      loadChildren: './workflowmanagement/workflowmanagement.module#WorkflowmanagementModule',
+      data: {
+        breadcrumb: 'Home'
+      }
     }]
   }];
 
 @NgModule({
   imports: [
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
   ],
   exports: [
     RouterModule

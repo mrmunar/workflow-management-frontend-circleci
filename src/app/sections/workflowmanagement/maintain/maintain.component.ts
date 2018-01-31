@@ -7,13 +7,12 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./maintain.component.css']
 })
 export class MaintainComponent implements OnInit {
-  id: number;
+  route_id: number;
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.id = params['id'];
+      this.route_id = params['id'];
    });
   }
-
 }

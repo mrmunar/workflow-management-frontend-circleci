@@ -1,4 +1,5 @@
-<p>
-  maintain works!
-  Test ID: {{id}}
-</p>
+<app-tabs>
+  <app-tab [tabTitle]="'Header'"><app-workflowheader></app-workflowheader></app-tab>
+  <app-tab [tabTitle]="'Process'"><app-workflowprocess></app-workflowprocess></app-tab>
+  <app-tab [tabTitle]="'Fields'"><app-workflowfields></app-workflowfields></app-tab>
+</app-tabs>

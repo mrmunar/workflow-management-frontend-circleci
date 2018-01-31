@@ -1,4 +1,3 @@
-
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -17,9 +16,12 @@ import { SectionsModule } from './sections/sections.module';
 import { Unauthorized404Component } from './unauthorized404.component';
 import { PagenotfoundComponent } from './pagenotfound.component';
 import { SignoutComponent } from './signout/signout.component';
+import { SharedComponentsModule } from './shared-components/shared-components.module';
 
-import { NgProgressModule } from '@ngx-progressbar/core';
-import { ShowErrorsComponent } from './show-errors.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthTokenInterceptor } from './auth-token.interceptor';
+import { ServererrorComponent } from './servererror.component';
+import { AuthResponseErrorsInterceptor } from './auth-response-errors.interceptor';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,7 @@ import { ShowErrorsComponent } from './show-errors.component';
     Unauthorized404Component,
     PagenotfoundComponent,
     SignoutComponent,
-    ShowErrorsComponent
+    ServererrorComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,9 +43,22 @@ import { ShowErrorsComponent } from './show-errors.component';
     SectionsModule,
     AppBootstrapModule,
     SectionsModule,
-    NgProgressModule.forRoot()
+    SharedComponentsModule
   ],
-  providers: [AuthService, AuthGuardService],
-  bootstrap: [AppComponent]
+  providers: [
+    AuthService,
+    AuthGuardService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthTokenInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthResponseErrorsInterceptor,
+      multi: true
+    }
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
