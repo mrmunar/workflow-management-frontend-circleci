@@ -47,7 +47,7 @@ export class AuthService {
 
   checkIfLoggedIn() {
     // Refresh authenticate and refresh token
-    this.http.get(environment.apiUrl + 'user/isLoggedIn?token=' + localStorage.getItem('token')).subscribe(
+    this.http.get(environment.apiUrl + 'user/isLoggedIn').subscribe(
       (response) => {
         localStorage.setItem('token', response['token']);
         console.log('Athenticated and refreshed token!');
@@ -67,17 +67,5 @@ export class AuthService {
     }
     this.isSignedIn.next(isLoggedIn);
     return isLoggedIn;
-  }
-
-  checkIfServerIsUp(error: Response): string {
-    let errorMsg: string;
-    if (error['error']['error']) {
-      // SQL or Token related errors
-      errorMsg = error['error']['error'];
-    } else if (error.status < 200 || error.status >= 500) {
-      // If backend server is down
-      errorMsg = 'Server connection error';
-    }
-    return errorMsg;
   }
 }

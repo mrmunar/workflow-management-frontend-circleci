@@ -1,15 +1,15 @@
+import { WorkflowlistComponent } from './workflowlist/workflowlist.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuardService as AuthGuard } from '../../auth-guard.service';
-import { ListComponent } from './list/list.component';
 import { MaintainComponent } from './maintain/maintain.component';
 
 
 const routes: Routes = [
   {
     path: '',
-    component: ListComponent
+    component: WorkflowlistComponent
   },
   {
     path: 'create',

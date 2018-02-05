@@ -1,5 +1,6 @@
-<app-tabs>
-  <app-tab [tabTitle]="'Header'"><app-workflowheader></app-workflowheader></app-tab>
-  <app-tab [tabTitle]="'Process'"><app-workflowprocess></app-workflowprocess></app-tab>
-  <app-tab [tabTitle]="'Fields'"><app-workflowfields></app-workflowfields></app-tab>
-</app-tabs>
+<h3>Workflow Maintenance</h3>
+<tabset>
+  <tab heading="Header"><app-workflowheader id="header_id"></app-workflowheader></tab>
+  <tab heading="Process" [disabled]="processFieldTabEnabled"><app-workflowprocessactivities headerid="header_id"></app-workflowprocessactivities></tab>
+  <tab heading="Fields" [disabled]="processFieldTabEnabled"><app-workflowfields id="header_id" ></app-workflowfields></tab>
+</tabset>

@@ -1,0 +1,48 @@
+<button class="btn" (click)="openModal(processActivitiesTemplate, 'processActivity')">Add New Activity</button>
+
+
+
+<ng-template #processActivitiesTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Add New Activity</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="addProcessActivitymodalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+    <div class="alert alert-success" *ngIf="statusMessage">{{statusMessage}}</div>
+    <div class="alert alert-danger" *ngIf="errors">{{errors}}</div>
+
+    <form [formGroup]="workflowProcessActivitiesForm">
+      <div class="form-group" *ngIf="id">
+      <strong>ID: </strong>{{id}}
+      </div>
+      <div class="form-group">
+        <label for="activity_id">Activities <button class="btn badge" (click)="openModal(paramsActivitiesTemplate, 'paramsActivity')">Add New Activity</button></label>
+        <select formControlName="activity_id" class="form-control">
+          <option *ngFor="let activity of wpadropdown" value="{{activity.id}}">{{activity.activity_desc}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="processor">Workflow Process Description</label>
+        <input formControlName="processor" class="form-control">
+        <app-show-errors [control]="workflowProcessActivitiesForm.controls['processor']"></app-show-errors>
+      </div>
+      <button class="btn float-left" (click)="saveWorkflowProcessActivities()" [disabled]="!workflowProcessActivitiesForm.valid">Save</button>
+    </form>
+
+
+    <ng-template #paramsActivitiesTemplate>
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">Add New Activity</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="addParamsActivitymodalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-workflowprocess></app-workflowprocess>
+        </div>
+      </ng-template>
+</div>
+</ng-template>

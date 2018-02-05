@@ -20,13 +20,13 @@ export class AuthResponseErrorsInterceptor implements HttpInterceptor {
 
     return next.handle(request).do((event: HttpEvent<any>) => {
       if (event instanceof HttpResponse) {
-        // Enter response logic here...
+        console.log(event);
       }
     }, (err: any) => {
       if (err instanceof HttpErrorResponse) {
+        console.log(err);
         if (err.status < 200 || err.status >= 500 || err['error']['error']) {
-          console.log(err);
-          window.location.href = '/servererror';
+          // window.location.href = '/servererror';
         }
       }
     });

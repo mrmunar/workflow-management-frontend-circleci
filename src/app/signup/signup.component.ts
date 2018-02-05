@@ -46,7 +46,6 @@ export class SignupComponent implements OnInit {
         this.signupForm.reset();
       },
       (error: Response) => {
-        this.errors = this.authService.checkIfServerIsUp(error);
         if (!this.errors) {
           if (error['error']['errors']['email']) {
             this.errors = error['error']['errors']['email'];

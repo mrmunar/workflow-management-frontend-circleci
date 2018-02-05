@@ -21,7 +21,7 @@
               <input type="password" formControlName="password" class="form-control">
               <app-show-errors [control]="signupForm.controls['password']"></app-show-errors>
           </div>
-          <button type="submit" [disabled]="!signupForm.valid">Sign up</button>
+          <button class="btn btn-default" type="submit" [disabled]="!signupForm.valid">Sign up</button>
         </form>
 
    </div>
