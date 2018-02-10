@@ -34,4 +34,4 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       # run tests!
-      - run: npm test --single-run=true --watch=false
+      - run: ng test --single-run=true --browsers PhantomJS --watch=false
